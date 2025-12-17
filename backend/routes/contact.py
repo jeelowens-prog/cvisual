@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required
-from app import db
+from extensions import db
 from models import ContactMessage
 from datetime import datetime
 
