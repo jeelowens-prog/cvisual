@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required
-from app import db
+from extensions import db
 from models import Project
 from datetime import datetime
 from utils.cloudinary_helper import upload_image, delete_image
