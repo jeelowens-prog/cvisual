@@ -1,10 +1,8 @@
 from flask import Flask, jsonify
-from flask_sqlalchemy import SQLAlchemy
-from flask_jwt_extended import JWTManager
-from flask_cors import CORS
 from datetime import timedelta
 import os
 from dotenv import load_dotenv
+from extensions import db, jwt, cors
 
 load_dotenv()
 
@@ -20,9 +18,9 @@ app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(hours=24)
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max file size
 
 # Initialize extensions
-db = SQLAlchemy(app)
-jwt = JWTManager(app)
-CORS(app, resources={r"/api/*": {"origins": "*"}})
+db.init_app(app)
+jwt.init_app(app)
+cors.init_app(app, resources={r"/api/*": {"origins": "*"}})
 
 # Import models
 from models import User, Project, BlogPost, Service, Testimonial, ContactMessage
