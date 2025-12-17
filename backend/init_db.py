@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 """Initialize database with default admin user"""
 
-from app import app, db
+from app import app
+from extensions import db
 from models import User
 import os
 from dotenv import load_dotenv
