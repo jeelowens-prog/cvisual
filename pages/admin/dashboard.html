@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - CVisual Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../../css/admin.css">
+</head>
+<body class="admin-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-logo" onclick="window.location.href='../homepage.html'">
+            <img src="../../assets/logo.jpg" alt="Logo" class="w-10 h-10 rounded">
+            <span>CVisual</span>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <a href="dashboard.html" class="nav-item active">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                Dashboard
+            </a>
+            <a href="portfolio.html" class="nav-item">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                Portfolio
+            </a>
+            <a href="inbox.html" class="nav-item">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                Inquiries
+            </a>
+            <a href="newsletter.html" class="nav-item">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10l4 4v10a2 2 0 01-2 2z"></path></svg>
+                Newsletter
+            </a>
+        </nav>
+
+        <div class="mt-auto">
+            <button onclick="AdminApp.logout()" class="nav-item w-full text-left text-red-400 hover:text-red-300">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                Déconnexion
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <header class="header-admin">
+            <h2 class="text-3xl font-bold text-gray-800">Vue d'ensemble</h2>
+            <div class="flex items-center space-x-4">
+                <span class="text-gray-600" id="adminName">Admin</span>
+                <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold">A</div>
+            </div>
+        </header>
+
+        <!-- Stats Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                <p class="text-gray-500 text-sm mb-1">Total Projets</p>
+                <h3 class="text-2xl font-bold" id="totalProjects">...</h3>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                <p class="text-gray-500 text-sm mb-1">Nouveaux Messages</p>
+                <h3 class="text-2xl font-bold text-blue-600" id="newMessages">...</h3>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                <p class="text-gray-500 text-sm mb-1">Abonnés Newsletter</p>
+                <h3 class="text-2xl font-bold" id="newsletterCount">...</h3>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                <p class="text-gray-500 text-sm mb-1">Status API</p>
+                <div class="flex items-center space-x-2">
+                    <div class="w-2 h-2 rounded-full bg-green-500"></div>
+                    <span class="text-sm text-green-600 font-medium">Connecté</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Activity / Info -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+            <div class="p-6 border-b border-gray-100 flex justify-between items-center">
+                <h4 class="font-bold text-gray-800">Derniers Messages Reçus</h4>
+                <a href="inbox.html" class="text-blue-600 text-sm font-medium hover:underline">Voir tout</a>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left">
+                    <thead class="bg-gray-50 text-gray-500 text-xs uppercase">
+                        <tr>
+                            <th class="px-6 py-3">Nom</th>
+                            <th class="px-6 py-3">Service</th>
+                            <th class="px-6 py-3">Date</th>
+                            <th class="px-6 py-3">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="recentInquiries" class="divide-y divide-gray-100">
+                        <!-- Content loaded by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <script src="../../assets/js/admin.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Load dashboard stats
+            const inquiries = await AdminApp.request('/inquiries');
+            const projects = await fetch('http://localhost:5000/api/portfolio').then(r => r.json());
+            
+            if (inquiries) {
+                document.getElementById('newMessages').textContent = inquiries.filter(i => i.status === 'pending').length;
+                document.getElementById('totalProjects').textContent = projects.length;
+                
+                const tbody = document.getElementById('recentInquiries');
+                inquiries.slice(0, 5).forEach(i => {
+                    const row = `
+                        <tr class="hover:bg-gray-50 transition">
+                            <td class="px-6 py-4 font-medium">${i.name}</td>
+                            <td class="px-6 py-4 text-gray-600">${i.service}</td>
+                            <td class="px-6 py-4 text-gray-500 text-sm">${new Date(i.date).toLocaleDateString()}</td>
+                            <td class="px-6 py-4">
+                                <span class="px-2 py-1 rounded-full text-xs font-medium ${i.status === 'pending' ? 'bg-blue-100 text-blue-600' : 'bg-green-100 text-green-600'}">
+                                    ${i.status}
+                                </span>
+                            </td>
+                        </tr>
+                    `;
+                    tbody.innerHTML += row;
+                });
+            }
+        });
+    </script>
+</body>
+</html>

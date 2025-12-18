@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boîte de Réception - CVisual Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../../css/admin.css">
+</head>
+<body class="admin-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-logo" onclick="window.location.href='../homepage.html'">
+            <img src="../../assets/logo.jpg" alt="Logo" class="w-10 h-10 rounded">
+            <span>CVisual</span>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="dashboard.html" class="nav-item">Dashboard</a>
+            <a href="portfolio.html" class="nav-item">Portfolio</a>
+            <a href="inbox.html" class="nav-item active">Inquiries</a>
+            <a href="newsletter.html" class="nav-item">Newsletter</a>
+        </nav>
+        <div class="mt-auto">
+            <button onclick="AdminApp.logout()" class="nav-item w-full text-left text-red-400">Déconnexion</button>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="header-admin">
+            <h2 class="text-3xl font-bold text-gray-800">Messages</h2>
+        </header>
+
+        <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="w-full text-left">
+                    <thead class="bg-gray-50 text-gray-500 text-xs uppercase">
+                        <tr>
+                            <th class="px-6 py-3">Expéditeur</th>
+                            <th class="px-6 py-3">Service</th>
+                            <th class="px-6 py-3">Status</th>
+                            <th class="px-6 py-3">Date</th>
+                            <th class="px-6 py-3">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="inquiryTable" class="divide-y divide-gray-100">
+                        <!-- Content loaded by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Message Detail Modal -->
+        <div id="messageModal" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center">
+            <div class="bg-white w-full max-w-2xl rounded-2xl p-8" id="messageContent">
+                <!-- Loaded dynamically -->
+            </div>
+        </div>
+    </main>
+
+    <script src="../../assets/js/admin.js"></script>
+    <script>
+        async function loadInquiries() {
+            const inquiries = await AdminApp.request('/inquiries');
+            const tbody = document.getElementById('inquiryTable');
+            tbody.innerHTML = inquiries.map(i => `
+                <tr class="hover:bg-gray-50 transition cursor-pointer" onclick="viewMessage(${i.id})">
+                    <td class="px-6 py-4">
+                        <div class="font-medium text-gray-900">${i.name}</div>
+                        <div class="text-sm text-gray-500">${i.email}</div>
+                    </td>
+                    <td class="px-6 py-4 text-gray-600">${i.service}</td>
+                    <td class="px-6 py-4">
+                        <span class="px-2 py-1 rounded-full text-xs font-medium ${i.status === 'pending' ? 'bg-blue-100 text-blue-600' : 'bg-green-100 text-green-600'}">
+                            ${i.status}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 text-gray-500 text-sm">${new Date(i.date).toLocaleDateString()}</td>
+                    <td class="px-6 py-4">
+                        <button class="text-blue-600 hover:text-blue-800 font-medium text-sm">Voir</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        async function viewMessage(id) {
+            // In a real app, you'd fetch specific message details
+            // For now, we'll just show the modal
+            document.getElementById('messageModal').classList.remove('hidden');
+            document.getElementById('messageContent').innerHTML = `
+                <div class="flex justify-between items-start mb-6">
+                    <div>
+                        <h3 class="text-2xl font-bold">Détails du message</h3>
+                        <p class="text-gray-500">ID: #${id}</p>
+                    </div>
+                    <button onclick="closeModal()" class="text-gray-400 hover:text-gray-600 text-2xl">&times;</button>
+                </div>
+                <div class="space-y-4">
+                   <p class="text-center text-gray-500 italic">Détails complets à implémenter (demande Fetch /api/inquiries/${id})</p>
+                </div>
+            `;
+        }
+
+        function closeModal() { document.getElementById('messageModal').classList.add('hidden'); }
+
+        loadInquiries();
+    </script>
+</body>
+</html>

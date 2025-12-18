@@ -775,24 +775,41 @@
             
             lastScroll = currentScroll;
         });
-
-        // Contact Form Submission
-        const contactForm = document.getElementById('contactForm');
-        const successMessage = document.getElementById('successMessage');
-
-        contactForm.addEventListener('submit', (e) => {
+    </script>
+    <script src="../assets/js/public.js"></script>
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', async (e) => {
             e.preventDefault();
+            const formData = new FormData(e.target);
+            const data = {
+                firstName: formData.get('firstName'),
+                lastName: formData.get('lastName'),
+                email: formData.get('email'),
+                phone: formData.get('phone'),
+                company: formData.get('company'),
+                service: formData.get('service'),
+                budget: formData.get('budget'),
+                timeline: formData.get('timeline'),
+                message: formData.get('message'),
+                contactMethod: formData.get('contactMethod')
+            };
+
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            const successMsg = document.getElementById('successMessage');
             
-            // Simulate form submission
-            setTimeout(() => {
-                successMessage.classList.remove('hidden');
-                contactForm.reset();
-                
-                // Hide success message after 5 seconds
-                setTimeout(() => {
-                    successMessage.classList.add('hidden');
-                }, 5000);
-            }, 500);
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span>Envoi en cours...</span>';
+
+            const result = await CVisual.submitContact(data);
+            
+            if (result.message) {
+                e.target.classList.add('hidden');
+                successMsg.classList.remove('hidden');
+            } else {
+                alert('Erreur: ' + (result.error || 'Une erreur est survenue'));
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<span>Envoyer la Demande</span>';
+            }
         });
 
         // Booking Form Submission
@@ -888,13 +905,6 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
                 </svg>
                 <span class="text-xs font-medium">À Propos</span>
-            </a>
-            <a href="admin.html" class="flex flex-col items-center justify-center space-y-1 p-2 min-w-0 flex-1">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-                </svg>
-                <span class="text-xs font-medium">Admin</span>
             </a>
             <a href="contact.html" class="flex flex-col items-center justify-center space-y-1 p-2 min-w-0 flex-1 active">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

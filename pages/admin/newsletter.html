@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Newsletter - CVisual Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../../css/admin.css">
+</head>
+<body class="admin-layout">
+    <aside class="sidebar">
+        <div class="sidebar-logo" onclick="window.location.href='../homepage.html'"><img src="../../assets/logo.jpg" alt="" class="w-10 rounded"><span>CVisual</span></div>
+        <nav class="sidebar-nav">
+            <a href="dashboard.html" class="nav-item">Dashboard</a>
+            <a href="portfolio.html" class="nav-item">Portfolio</a>
+            <a href="inbox.html" class="nav-item">Inquiries</a>
+            <a href="newsletter.html" class="nav-item active">Newsletter</a>
+        </nav>
+        <div class="mt-auto"><button onclick="AdminApp.logout()" class="nav-item w-full text-left text-red-400">Déconnexion</button></div>
+    </aside>
+
+    <main class="main-content">
+        <header class="header-admin">
+            <h2 class="text-3xl font-bold text-gray-800">Newsletter</h2>
+            <button class="bg-blue-600 text-white px-4 py-2 rounded-lg">Exporter CSV</button>
+        </header>
+
+        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+            <h3 class="font-bold mb-4">Liste des abonnés</h3>
+            <ul id="subscriberList" class="divide-y divide-gray-100">
+                <!-- Content loaded here -->
+                <li class="py-2 text-gray-500">Chargement...</li>
+            </ul>
+        </div>
+    </main>
+
+    <script src="../../assets/js/admin.js"></script>
+    <script>
+        // Simple list loading - in a real app, this would have a dedicated endpoint
+        // For now, it's a placeholder to show the UI
+        document.getElementById('subscriberList').innerHTML = `
+            <li class="py-3 flex justify-between">
+                <span>test@example.com</span>
+                <span class="text-gray-400 text-sm">Abonné le 17/12/2025</span>
+            </li>
+        `;
+    </script>
+</body>
+</html>

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion Portfolio - CVisual Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../../css/admin.css">
+</head>
+<body class="admin-layout">
+    <!-- Sidebar (Same as dashboard) -->
+    <aside class="sidebar">
+        <!-- ... navigation items ... -->
+        <div class="sidebar-logo" onclick="window.location.href='../homepage.html'">
+            <img src="../../assets/logo.jpg" alt="Logo" class="w-10 h-10 rounded">
+            <span>CVisual</span>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="dashboard.html" class="nav-item">Dashboard</a>
+            <a href="portfolio.html" class="nav-item active">Portfolio</a>
+            <a href="inbox.html" class="nav-item">Inquiries</a>
+            <a href="newsletter.html" class="nav-item">Newsletter</a>
+        </nav>
+        <div class="mt-auto">
+            <button onclick="AdminApp.logout()" class="nav-item w-full text-left text-red-400">Déconnexion</button>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="header-admin">
+            <h2 class="text-3xl font-bold text-gray-800">Portfolio</h2>
+            <button onclick="openModal()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium shadow-sm transition">
+                + Nouveau Projet
+            </button>
+        </header>
+
+        <div id="projectList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Projects loaded here -->
+        </div>
+
+        <!-- Add Project Modal -->
+        <div id="projectModal" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center">
+            <div class="bg-white w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl shadow-2xl p-8">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-xl font-bold">Ajouter un Projet</h3>
+                    <button onclick="closeModal()" class="text-gray-400 hover:text-gray-600">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                </div>
+                
+                <form id="projectForm" class="space-y-4">
+                    <input type="hidden" name="project_id" id="projectIdField">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Titre</label>
+                            <input name="title" id="formTitle" type="text" required class="w-full border rounded-lg p-2">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Catégorie</label>
+                            <select name="category" id="formCategory" class="w-full border rounded-lg p-2">
+                                <option>Site Web</option>
+                                <option>Photographie</option>
+                                <option>Design Graphique</option>
+                                <option>Community Management</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Image Principale (Laisser vide si pas de changement)</label>
+                        <input name="main_image" type="file" class="w-full border rounded-lg p-2">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Challenge</label>
+                        <textarea name="challenge" id="formChallenge" rows="3" class="w-full border rounded-lg p-2"></textarea>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Solution (SEO)</label>
+                        <textarea name="solution" id="formSolution" rows="2" class="w-full border rounded-lg p-2"></textarea>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Lien du Site (Optionnel)</label>
+                        <input name="live_link" id="formLiveLink" type="url" placeholder="https://example.com" class="w-full border rounded-lg p-2">
+                    </div>
+
+                    <!-- Gallery, Metrics, etc. would go here -->
+
+                    <div class="pt-4">
+                        <button type="submit" id="submitBtn" class="w-full bg-blue-600 text-white py-3 rounded-xl font-bold hover:bg-blue-700 transition">
+                            Publier le projet
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <script src="../../assets/js/admin.js"></script>
+    <script>
+        let projectsCache = [];
+
+        async function loadProjects() {
+            try {
+                projectsCache = await fetch('http://localhost:5000/api/portfolio').then(r => r.json());
+                const list = document.getElementById('projectList');
+                list.innerHTML = projectsCache.map(p => `
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group">
+                        <div class="relative h-48 overflow-hidden">
+                            <img src="${p.main_image}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                            <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition"></div>
+                        </div>
+                        <div class="p-4">
+                            <h4 class="font-bold text-lg">${p.title}</h4>
+                            <p class="text-sm text-gray-500">${p.category}</p>
+                            <div class="mt-4 flex space-x-2">
+                                <button onclick="editProject(${p.id})" class="text-blue-600 text-sm font-medium">Modifier</button>
+                                <button onclick="deleteProject(${p.id})" class="text-red-600 text-sm font-medium">Supprimer</button>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (err) {
+                console.error("Failed to load projects:", err);
+            }
+        }
+
+        function openModal(isEdit = false) {
+            const modal = document.getElementById('projectModal');
+            const modalTitle = modal.querySelector('h3');
+            const submitBtn = document.getElementById('submitBtn');
+            const projectIdField = document.getElementById('projectIdField');
+
+            if (!isEdit) {
+                document.getElementById('projectForm').reset();
+                projectIdField.value = "";
+                modalTitle.textContent = "Ajouter un Projet";
+                submitBtn.textContent = "Publier le projet";
+                // Main image is required for new projects
+                document.querySelector('input[name="main_image"]').required = true;
+            } else {
+                modalTitle.textContent = "Modifier le Projet";
+                submitBtn.textContent = "Enregistrer les modifications";
+                // Main image is optional for edits
+                document.querySelector('input[name="main_image"]').required = false;
+            }
+
+            modal.classList.remove('hidden');
+        }
+
+        function closeModal() { document.getElementById('projectModal').classList.add('hidden'); }
+
+        function editProject(id) {
+            const p = projectsCache.find(x => x.id === id);
+            if (!p) return;
+
+            openModal(true);
+            document.getElementById('projectIdField').value = p.id;
+            document.getElementById('formTitle').value = p.title;
+            document.getElementById('formCategory').value = p.category;
+            document.getElementById('formChallenge').value = p.challenge || "";
+            document.getElementById('formSolution').value = p.solution || "";
+            document.getElementById('formLiveLink').value = p.live_link || "";
+        }
+
+        async function deleteProject(id) {
+            if (!confirm('Êtes-vous sûr de vouloir supprimer ce projet ?')) return;
+
+            try {
+                const response = await fetch(`http://localhost:5000/api/portfolio/${id}`, {
+                    method: 'DELETE',
+                    headers: { 'Authorization': `Bearer ${AdminApp.getToken()}` }
+                });
+
+                if (response.ok) {
+                    AdminApp.showToast('Projet supprimé');
+                    loadProjects();
+                } else {
+                    const data = await response.json();
+                    alert('Erreur: ' + (data.error || 'Impossible de supprimer'));
+                }
+            } catch (err) {
+                alert('Erreur réseau');
+            }
+        }
+
+        document.getElementById('projectForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const projectId = document.getElementById('projectIdField').value;
+            
+            const url = projectId 
+                ? `http://localhost:5000/api/portfolio/${projectId}` 
+                : 'http://localhost:5000/api/portfolio';
+            
+            const method = projectId ? 'PUT' : 'POST';
+
+            try {
+                const response = await fetch(url, {
+                    method: method,
+                    headers: { 'Authorization': `Bearer ${AdminApp.getToken()}` },
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    closeModal();
+                    loadProjects();
+                    AdminApp.showToast(projectId ? 'Projet mis à jour !' : 'Projet ajouté !');
+                    e.target.reset();
+                } else {
+                    alert('Erreur: ' + (data.error || data.msg || 'Une erreur est survenue'));
+                }
+            } catch (err) {
+                console.error(err);
+                alert('Erreur réseau ou CORS : ' + err.message);
+            }
+        });
+
+        loadProjects();
+    </script>
+</body>
+</html>

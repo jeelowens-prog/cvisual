@@ -669,6 +669,7 @@
                 <div class="flex space-x-6 text-sm">
                     <a href="javascript:void(0)" class="text-white/60 hover:text-accent transition-colors">Politique de Confidentialité</a>
                     <a href="javascript:void(0)" class="text-white/60 hover:text-accent transition-colors">Conditions d'Utilisation</a>
+                    <a href="admin/dashboard.html" class="text-white/60 hover:text-accent transition-colors">Administration</a>
                 </div>
             </div>
         </div>
@@ -742,16 +743,29 @@
             });
         });
 
-        // Newsletter Form
+    </script>
+    <script src="../assets/js/public.js"></script>
+    <script>
+        // newsletterForm Handling
         const newsletterForm = document.getElementById('newsletterForm');
         
-        newsletterForm.addEventListener('submit', (e) => {
+        newsletterForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const email = e.target.querySelector('input[type="email"]').value;
+            const emailInput = e.target.querySelector('input[type="email"]');
+            const email = emailInput.value;
             
-            // Show success message
-            alert(`Merci de vous être abonné! Nous vous enverrons nos derniers articles à ${email}`);
-            e.target.reset();
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            submitBtn.disabled = true;
+
+            const result = await CVisual.subscribeNewsletter(email);
+            
+            if (result.message) {
+                alert('Merci de vous être abonné !');
+                e.target.reset();
+            } else {
+                alert('Erreur: ' + (result.error || 'Une erreur est survenue'));
+            }
+            submitBtn.disabled = false;
         });
 
         // Load More Button
@@ -892,13 +906,6 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
                 </svg>
                 <span class="text-xs font-medium">À Propos</span>
-            </a>
-            <a href="admin.html" class="flex flex-col items-center justify-center space-y-1 p-2 min-w-0 flex-1">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-                </svg>
-                <span class="text-xs font-medium">Admin</span>
             </a>
             <a href="blog.html" class="flex flex-col items-center justify-center space-y-1 p-2 min-w-0 flex-1 active">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

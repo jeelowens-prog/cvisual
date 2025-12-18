@@ -73,75 +73,6 @@
         </div>
     </section>
 
-    <!-- Filter & Search Section -->
-    <section class="py-6 md:py-8 lg:py-10 bg-white border-b border-border sticky top-20 z-40" id="filterSection">
-        <div class="container-custom">
-            <div class="flex flex-col lg:flex-row gap-4 items-start lg:items-center justify-between">
-                <!-- Search Bar -->
-                <div class="w-full lg:w-80">
-                    <div class="relative">
-                        <input type="text" 
-                               id="searchInput" 
-                               placeholder="Rechercher..." 
-                               class="input pl-10 text-sm"
-                               aria-label="Rechercher des projets">
-                        <svg class="w-4 h-4 text-text-tertiary absolute left-3 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-                        </svg>
-                    </div>
-                </div>
-
-                <!-- Filter Buttons -->
-                <div class="flex flex-wrap gap-2">
-                    <button class="filter-btn active text-xs" data-filter="all">
-                        <span>Tous</span>
-                        <span class="ml-1 bg-white/20 px-1.5 py-0.5 rounded-full text-xs">150</span>
-                    </button>
-                    <button class="filter-btn text-xs" data-filter="website">
-                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                        </svg>
-                        <span>Web</span>
-                    </button>
-                    <button class="filter-btn text-xs" data-filter="photography">
-                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/>
-                        </svg>
-                        <span>Photo</span>
-                    </button>
-                    <button class="filter-btn text-xs" data-filter="social">
-                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"/>
-                        </svg>
-                        <span>Réseaux</span>
-                    </button>
-                    <button class="filter-btn text-xs" data-filter="design">
-                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/>
-                        </svg>
-                        <span>Design</span>
-                    </button>
-                    <button class="filter-btn text-xs" data-filter="content">
-                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
-                        </svg>
-                        <span>Contenu</span>
-                    </button>
-                </div>
-
-                <!-- Reset & Advanced Filters -->
-                <div class="flex items-center gap-2">
-                    <button id="resetFilters" class="btn-ghost text-xs px-3 py-1.5">
-                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
-                        </svg>
-                        <span>Réinitialiser</span>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <!-- Portfolio Grid Section -->
     <section class="section bg-background">
@@ -149,334 +80,157 @@
             <!-- Results Count -->
             <div class="mb-8 flex items-center justify-between">
                 <p class="text-text-secondary">
-                    <span id="resultsCount" class="font-semibold text-text-primary">150</span> projets trouvés
+                    <span id="resultsCount" class="font-semibold text-text-primary">0</span> projets trouvés
                 </p>
-                <select id="sortSelect" class="input w-auto text-sm" aria-label="Trier les projets">
-                    <option value="recent">Plus Récents</option>
-                    <option value="popular">Plus Populaires</option>
-                    <option value="impact">Plus d'Impact</option>
-                </select>
+                <!-- ... sort select ... -->
             </div>
 
             <!-- Portfolio Grid -->
-            <div id="portfolioGrid" class="portfolio-grid">
-                <!-- Project Card 1: E-commerce Website -->
-                <article class="portfolio-item card-hover group" data-category="website" data-industry="ecommerce" data-size="large" data-date="2025">
-                    <div class="relative overflow-hidden rounded-lg mb-4 h-64">
-                        <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1bc80513b-1763822310729.png" 
-                             alt="Site e-commerce moderne avec interface utilisateur intuitive et système de paiement intégré pour Boutique Élégance" 
-                             class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                             loading="lazy"
-                             onerror="this.src='https://images.pexels.com/photos/265087/pexels-photo-265087.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'; this.onerror=null;">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                            <button class="btn-primary w-full view-project" data-project="1">
-                                Voir le Projet
-                                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
-                                </svg>
-                            </button>
-                        </div>
-                        <span class="absolute top-4 left-4 bg-accent text-white px-3 py-1 rounded-full text-sm font-medium">Site Web</span>
-                    </div>
-                    <div class="space-y-3">
-                        <h3 class="text-xl font-bold text-text-primary group-hover:text-primary transition-colors">Boutique Élégance - E-commerce</h3>
-                        <p class="text-text-secondary text-sm line-clamp-2">Plateforme e-commerce complète avec augmentation de 250% des ventes en ligne pour une boutique de mode locale.</p>
-                        <div class="flex items-center justify-between pt-2">
-                            <div class="flex items-center space-x-2 text-sm text-text-tertiary">
-                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
-                                </svg>
-                                <span>Janvier 2025</span>
-                            </div>
-                            <span class="badge badge-success">+250% Ventes</span>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Project Card 2: Restaurant Photography -->
-                <article class="portfolio-item card-hover group" data-category="photography" data-industry="restaurant" data-size="medium" data-date="2024">
-                    <div class="relative overflow-hidden rounded-lg mb-4 h-64">
-                        <img src="https://img.rocket.new/generatedImages/rocket_gen_img_19e526a67-1763822313500.png" 
-                             alt="Photographie culinaire professionnelle de plats créoles avec éclairage studio pour restaurant Saveurs Créoles" 
-                             class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                             loading="lazy"
-                             onerror="this.src='https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=2340&auto=format&fit=crop'; this.onerror=null;">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                            <button class="btn-primary w-full view-project" data-project="2">
-                                Voir le Projet
-                                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
-                                </svg>
-                            </button>
-                        </div>
-                        <span class="absolute top-4 left-4 bg-secondary text-white px-3 py-1 rounded-full text-sm font-medium">Photographie</span>
-                    </div>
-                    <div class="space-y-3">
-                        <h3 class="text-xl font-bold text-text-primary group-hover:text-primary transition-colors">Saveurs Créoles - Photographie Culinaire</h3>
-                        <p class="text-text-secondary text-sm line-clamp-2">Campagne photographique complète augmentant l'engagement Instagram de 300% et attirant une clientèle internationale.</p>
-                        <div class="flex items-center justify-between pt-2">
-                            <div class="flex items-center space-x-2 text-sm text-text-tertiary">
-                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
-                                </svg>
-                                <span>Décembre 2024</span>
-                            </div>
-                            <span class="badge badge-success">+300% Engagement</span>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Project Card 3: Social Media Management -->
-                <article class="portfolio-item card-hover group" data-category="social" data-industry="tech" data-size="large" data-date="2024">
-                    <div class="relative overflow-hidden rounded-lg mb-4 h-64">
-                        <img src="https://images.unsplash.com/photo-1644317167865-ee0f3ff917a1" 
-                             alt="Stratégie de réseaux sociaux avec calendrier de contenu et analytics pour TechHaiti Solutions" 
-                             class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                             loading="lazy"
-                             onerror="this.src='https://images.pexels.com/photos/267350/pexels-photo-267350.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'; this.onerror=null;">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                            <button class="btn-primary w-full view-project" data-project="3">
-                                Voir le Projet
-                                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
-                                </svg>
-                            </button>
-                        </div>
-                        <span class="absolute top-4 left-4 bg-primary text-white px-3 py-1 rounded-full text-sm font-medium">Réseaux Sociaux</span>
-                    </div>
-                    <div class="space-y-3">
-                        <h3 class="text-xl font-bold text-text-primary group-hover:text-primary transition-colors">TechHaiti - Gestion Communautaire</h3>
-                        <p class="text-text-secondary text-sm line-clamp-2">Stratégie complète de réseaux sociaux générant 5 000 nouveaux abonnés et doublant le taux de conversion en 3 mois.</p>
-                        <div class="flex items-center justify-between pt-2">
-                            <div class="flex items-center space-x-2 text-sm text-text-tertiary">
-                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
-                                </svg>
-                                <span>Novembre 2024</span>
-                            </div>
-                            <span class="badge badge-success">+5K Abonnés</span>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Project Card 4: Brand Identity Design -->
-                <article class="portfolio-item card-hover group" data-category="design" data-industry="fashion" data-size="medium" data-date="2024">
-                    <div class="relative overflow-hidden rounded-lg mb-4 h-64">
-                        <img src="https://img.rocket.new/generatedImages/rocket_gen_img_15b1505b0-1763822311447.png" 
-                             alt="Identité visuelle complète avec logo, palette de couleurs et guidelines pour marque de mode Ayiti Style" 
-                             class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                             loading="lazy"
-                             onerror="this.src='https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'; this.onerror=null;">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                            <button class="btn-primary w-full view-project" data-project="4">
-                                Voir le Projet
-                                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
-                                </svg>
-                            </button>
-                        </div>
-                        <span class="absolute top-4 left-4 bg-accent text-white px-3 py-1 rounded-full text-sm font-medium">Design Graphique</span>
-                    </div>
-                    <div class="space-y-3">
-                        <h3 class="text-xl font-bold text-text-primary group-hover:text-primary transition-colors">Ayiti Style - Identité Visuelle</h3>
-                        <p class="text-text-secondary text-sm line-clamp-2">Création d'une identité de marque cohérente reflétant la culture haïtienne avec reconnaissance de marque augmentée de 180%.</p>
-                        <div class="flex items-center justify-between pt-2">
-                            <div class="flex items-center space-x-2 text-sm text-text-tertiary">
-                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
-                                </svg>
-                                <span>Octobre 2024</span>
-                            </div>
-                            <span class="badge badge-success">+180% Reconnaissance</span>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Project Card 5: Content Creation -->
-                <article class="portfolio-item card-hover group" data-category="content" data-industry="restaurant" data-size="small" data-date="2024">
-                    <div class="relative overflow-hidden rounded-lg mb-4 h-64">
-                        <img src="https://images.unsplash.com/photo-1585240027196-5277a4c00533" 
-                             alt="Création de contenu vidéo et rédaction pour campagne marketing de restaurant local" 
-                             class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                             loading="lazy"
-                             onerror="this.src='https://images.pixabay.com/photo/2015/01/08/18/29/entrepreneur-593358_1280.jpg'; this.onerror=null;">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                            <button class="btn-primary w-full view-project" data-project="5">
-                                Voir le Projet
-                                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
-                                </svg>
-                            </button>
-                        </div>
-                        <span class="absolute top-4 left-4 bg-secondary text-white px-3 py-1 rounded-full text-sm font-medium">Contenu</span>
-                    </div>
-                    <div class="space-y-3">
-                        <h3 class="text-xl font-bold text-text-primary group-hover:text-primary transition-colors">Café Lakay - Stratégie de Contenu</h3>
-                        <p class="text-text-secondary text-sm line-clamp-2">Campagne de contenu vidéo et articles de blog augmentant le trafic web de 200% et les réservations de 150%.</p>
-                        <div class="flex items-center justify-between pt-2">
-                            <div class="flex items-center space-x-2 text-sm text-text-tertiary">
-                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
-                                </svg>
-                                <span>Septembre 2024</span>
-                            </div>
-                            <span class="badge badge-success">+200% Trafic</span>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Project Card 6: Corporate Website -->
-                <article class="portfolio-item card-hover group" data-category="website" data-industry="tech" data-size="large" data-date="2024">
-                    <div class="relative overflow-hidden rounded-lg mb-4 h-64">
-                        <img src="https://images.unsplash.com/photo-1725895521603-d9d9c46064b0" 
-                             alt="Site web corporatif moderne avec design responsive et système de gestion de contenu pour entreprise technologique" 
-                             class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                             loading="lazy"
-                             onerror="this.src='https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'; this.onerror=null;">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                            <button class="btn-primary w-full view-project" data-project="6">
-                                Voir le Projet
-                                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
-                                </svg>
-                            </button>
-                        </div>
-                        <span class="absolute top-4 left-4 bg-accent text-white px-3 py-1 rounded-full text-sm font-medium">Site Web</span>
-                    </div>
-                    <div class="space-y-3">
-                        <h3 class="text-xl font-bold text-text-primary group-hover:text-primary transition-colors">InnoTech Haiti - Site Corporatif</h3>
-                        <p class="text-text-secondary text-sm line-clamp-2">Plateforme web professionnelle avec génération de leads augmentée de 320% et positionnement comme leader du marché.</p>
-                        <div class="flex items-center justify-between pt-2">
-                            <div class="flex items-center space-x-2 text-sm text-text-tertiary">
-                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
-                                </svg>
-                                <span>Août 2024</span>
-                            </div>
-                            <span class="badge badge-success">+320% Leads</span>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Project Card 7: Event Photography -->
-                <article class="portfolio-item card-hover group" data-category="photography" data-industry="ecommerce" data-size="small" data-date="2023">
-                    <div class="relative overflow-hidden rounded-lg mb-4 h-64">
-                        <img src="https://img.rocket.new/generatedImages/rocket_gen_img_127728ce8-1763822311477.png" 
-                             alt="Photographie d'événement professionnel avec couverture complète pour lancement de produit" 
-                             class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                             loading="lazy"
-                             onerror="this.src='https://images.pixabay.com/photo/2016/11/19/15/32/laptop-1839876_1280.jpg'; this.onerror=null;">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                            <button class="btn-primary w-full view-project" data-project="7">
-                                Voir le Projet
-                                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
-                                </svg>
-                            </button>
-                        </div>
-                        <span class="absolute top-4 left-4 bg-secondary text-white px-3 py-1 rounded-full text-sm font-medium">Photographie</span>
-                    </div>
-                    <div class="space-y-3">
-                        <h3 class="text-xl font-bold text-text-primary group-hover:text-primary transition-colors">Marketplace Haiti - Lancement Produit</h3>
-                        <p class="text-text-secondary text-sm line-clamp-2">Couverture photographique complète d'événement générant 50 000 impressions sur les réseaux sociaux.</p>
-                        <div class="flex items-center justify-between pt-2">
-                            <div class="flex items-center space-x-2 text-sm text-text-tertiary">
-                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
-                                </svg>
-                                <span>Juillet 2023</span>
-                            </div>
-                            <span class="badge badge-success">50K Impressions</span>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Project Card 8: Social Media Campaign -->
-                <article class="portfolio-item card-hover group" data-category="social" data-industry="fashion" data-size="medium" data-date="2023">
-                    <div class="relative overflow-hidden rounded-lg mb-4 h-64">
-                        <img src="https://images.unsplash.com/photo-1676287569526-4cc878f841ef" 
-                             alt="Campagne de réseaux sociaux avec contenu créatif et stratégie d'engagement pour marque de mode" 
-                             class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                             loading="lazy"
-                             onerror="this.src='https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=2574&auto=format&fit=crop'; this.onerror=null;">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                            <button class="btn-primary w-full view-project" data-project="8">
-                                Voir le Projet
-                                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
-                                </svg>
-                            </button>
-                        </div>
-                        <span class="absolute top-4 left-4 bg-primary text-white px-3 py-1 rounded-full text-sm font-medium">Réseaux Sociaux</span>
-                    </div>
-                    <div class="space-y-3">
-                        <h3 class="text-xl font-bold text-text-primary group-hover:text-primary transition-colors">Kreyol Chic - Campagne Sociale</h3>
-                        <p class="text-text-secondary text-sm line-clamp-2">Campagne virale sur Instagram et Facebook générant 15 000 nouveaux abonnés et 400% d'augmentation des ventes.</p>
-                        <div class="flex items-center justify-between pt-2">
-                            <div class="flex items-center space-x-2 text-sm text-text-tertiary">
-                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
-                                </svg>
-                                <span>Juin 2023</span>
-                            </div>
-                            <span class="badge badge-success">+400% Ventes</span>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Project Card 9: Logo & Branding -->
-                <article class="portfolio-item card-hover group" data-category="design" data-industry="restaurant" data-size="small" data-date="2023">
-                    <div class="relative overflow-hidden rounded-lg mb-4 h-64">
-                        <img src="https://img.rocket.new/generatedImages/rocket_gen_img_13b6b3340-1763822311434.png" 
-                             alt="Design de logo moderne et système d'identité visuelle pour restaurant local" 
-                             class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                             loading="lazy"
-                             onerror="this.src='https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'; this.onerror=null;">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                            <button class="btn-primary w-full view-project" data-project="9">
-                                Voir le Projet
-                                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
-                                </svg>
-                            </button>
-                        </div>
-                        <span class="absolute top-4 left-4 bg-accent text-white px-3 py-1 rounded-full text-sm font-medium">Design Graphique</span>
-                    </div>
-                    <div class="space-y-3">
-                        <h3 class="text-xl font-bold text-text-primary group-hover:text-primary transition-colors">Manje Lakay - Logo & Branding</h3>
-                        <p class="text-text-secondary text-sm line-clamp-2">Création d'identité de marque authentique reflétant la cuisine traditionnelle haïtienne avec mémorabilité accrue de 220%.</p>
-                        <div class="flex items-center justify-between pt-2">
-                            <div class="flex items-center space-x-2 text-sm text-text-tertiary">
-                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
-                                </svg>
-                                <span>Mai 2023</span>
-                            </div>
-                            <span class="badge badge-success">+220% Mémorabilité</span>
-                        </div>
-                    </div>
-                </article>
+            <div id="portfolioGrid" class="portfolio-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Projects will be loaded dynamically -->
             </div>
 
-            <!-- Load More Button -->
-            <div class="text-center mt-12">
-                <button id="loadMoreBtn" class="btn-outline rounded-sm">
-                    <span>Charger Plus de Projets</span>
-                    <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                    </svg>
-                </button>
-            </div>
+            <!-- ... -->
         </div>
     </section>
 
     <!-- Project Detail Modal -->
-    <div id="projectModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-100 hidden items-center justify-center p-4">
-        <div class="bg-white rounded-lg max-w-5xl w-full max-h-[90vh] overflow-y-auto">
-            <!-- Modal Content will be dynamically inserted -->
+    <div id="projectModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[100] hidden items-center justify-center p-4">
+        <div class="bg-white rounded-lg max-w-5xl w-full max-h-[90vh] overflow-y-auto relative shadow-2xl">
+            <!-- Close Button at top level for easy access -->
+            <button onclick="closeModal()" class="absolute top-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-lg hover:bg-gray-100 transition-colors z-50 text-2xl text-gray-800">&times;</button>
             <div id="modalContent"></div>
         </div>
     </div>
+
+    <script src="../assets/js/public.js"></script>
+    <script>
+        let currentProjects = [];
+
+        async function renderProjects() {
+            try {
+                currentProjects = await CVisual.fetchPortfolio();
+                const grid = document.getElementById('portfolioGrid');
+                const count = document.getElementById('resultsCount');
+                
+                if (!currentProjects || currentProjects.length === 0) {
+                    grid.innerHTML = '<p class="col-span-full text-center text-gray-500 py-12">Aucun projet trouvé pour le moment.</p>';
+                    count.textContent = 0;
+                    return;
+                }
+
+                count.textContent = currentProjects.length;
+                grid.innerHTML = currentProjects.map(p => `
+                    <article class="portfolio-item card-hover group" data-category="${p.category.toLowerCase()}" data-id="${p.id}">
+                        <div class="relative overflow-hidden rounded-lg mb-4 h-64">
+                            <img src="${p.main_image}" 
+                                 alt="${p.title}" 
+                                 class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                                 loading="lazy">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                                <button class="btn-primary w-full" onclick="openProjectDetails(${p.id})">
+                                    Voir le Projet
+                                    <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                                    </svg>
+                                </button>
+                            </div>
+                            <span class="absolute top-4 left-4 bg-accent text-white px-3 py-1 rounded-full text-sm font-medium">${p.category}</span>
+                        </div>
+                        <div class="space-y-3">
+                            <h3 class="text-xl font-bold text-text-primary group-hover:text-primary transition-colors">${p.title}</h3>
+                            <p class="text-text-secondary text-sm line-clamp-2">${p.challenge ? p.challenge.substring(0, 100) + '...' : ''}</p>
+                            <div class="flex items-center justify-between pt-2">
+                                <div class="flex items-center space-x-2 text-sm text-text-tertiary">
+                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span>${p.date || 'Récent'}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                `).join('');
+            } catch (err) {
+                console.error("Failed to render projects:", err);
+            }
+        }
+
+        function openProjectDetails(id) {
+            const p = currentProjects.find(item => item.id === id);
+            if (!p) return;
+
+            const modal = document.getElementById('projectModal');
+            const content = document.getElementById('modalContent');
+            
+            content.innerHTML = `
+                <div class="relative">
+                    <img src="${p.main_image}" class="w-full h-96 object-cover" alt="${p.title}">
+                    <div class="p-8 space-y-8">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                            <div>
+                                <h2 class="text-4xl font-bold text-gray-900 mb-2">${p.title}</h2>
+                                <span class="bg-accent-100 text-accent-700 px-3 py-1 rounded-full text-sm font-medium">${p.category}</span>
+                            </div>
+                            ${p.live_link ? `
+                                <a href="${p.live_link}" target="_blank" class="inline-flex items-center px-6 py-3 bg-primary text-white font-bold rounded-lg hover:bg-primary-600 transition shadow-lg shrink-0">
+                                    Visiter le site live
+                                    <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                                </a>
+                            ` : ''}
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-12">
+                            <div class="space-y-4">
+                                <h4 class="text-xl font-bold text-gray-800 border-l-4 border-primary pl-4">Le Défi</h4>
+                                <p class="text-gray-600 leading-relaxed">${p.challenge || 'Non spécifié'}</p>
+                            </div>
+                            <div class="space-y-4">
+                                <h4 class="text-xl font-bold text-gray-800 border-l-4 border-accent pl-4">Notre Solution</h4>
+                                <p class="text-gray-600 leading-relaxed">${p.solution || 'Non spécifié'}</p>
+                            </div>
+                        </div>
+
+                        ${p.gallery && p.gallery.length > 0 ? `
+                            <div>
+                                <h4 class="text-xl font-bold text-gray-800 mb-6">Galerie du Projet</h4>
+                                <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                                    ${p.gallery.map(img => `<img src="${img}" class="h-48 w-full object-cover rounded-lg shadow-sm hover:shadow-md transition">`).join('')}
+                                </div>
+                            </div>
+                        ` : ''}
+                        
+                        <div class="pt-8 border-t flex justify-end">
+                            <button onclick="closeModal()" class="px-8 py-3 bg-gray-100 text-gray-700 font-semibold rounded-lg hover:bg-gray-200 transition">Fermer</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('projectModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.body.style.overflow = '';
+        }
+
+        // Close on escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        // Close on background click
+        document.getElementById('projectModal').addEventListener('click', (e) => {
+            if (e.target.id === 'projectModal') closeModal();
+        });
+
+        document.addEventListener('DOMContentLoaded', renderProjects);
+    </script>
 
     <!-- CTA Section -->
     <section class="section bg-gradient-to-br from-accent-50 via-white to-primary-50">
@@ -516,8 +270,7 @@
                 <!-- Company Info -->
                 <div class="space-y-6">
                     <a href="homepage.html" class="flex items-center space-x-3">
-                          <img src="../assets/logo.jpg" width="60px" alt="img" class="rounded-sm">
-                   
+                        <img src="../assets/logo.jpg" width="60px" alt="img" class="rounded-sm">
                         <span class="text-2xl font-bold">CVisual</span>
                     </a>
                     <p class="text-white/80">
@@ -601,505 +354,11 @@
                 <div class="flex space-x-6 text-sm">
                     <a href="javascript:void(0)" class="text-white/60 hover:text-accent transition-colors">Politique de Confidentialité</a>
                     <a href="javascript:void(0)" class="text-white/60 hover:text-accent transition-colors">Conditions d'Utilisation</a>
+                    <a href="admin/dashboard.html" class="text-white/60 hover:text-accent transition-colors">Administration</a>
                 </div>
             </div>
         </div>
     </footer>
-
-    <!-- JavaScript -->
-    <script>
-        // Mobile Menu Toggle
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const mobileMenu = document.getElementById('mobileMenu');
-
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-
-        // Header Scroll Effect
-        const header = document.getElementById('mainHeader');
-        let lastScroll = 0;
-
-        window.addEventListener('scroll', () => {
-            const currentScroll = window.pageYOffset;
-            
-            if (currentScroll > 100) {
-                header.classList.add('shadow-elevation');
-            } else {
-                header.classList.remove('shadow-elevation');
-            }
-            
-            lastScroll = currentScroll;
-        });
-
-        // Advanced Filters Toggle
-        const advancedFiltersBtn = document.getElementById('advancedFilters');
-        const advancedFiltersPanel = document.getElementById('advancedFiltersPanel');
-
-        advancedFiltersBtn.addEventListener('click', () => {
-            advancedFiltersPanel.classList.toggle('hidden');
-        });
-
-        // Filter Functionality
-        const filterBtns = document.querySelectorAll('.filter-btn');
-        const portfolioItems = document.querySelectorAll('.portfolio-item');
-        const searchInput = document.getElementById('searchInput');
-        const resetFiltersBtn = document.getElementById('resetFilters');
-        const resultsCount = document.getElementById('resultsCount');
-
-        let activeFilter = 'all';
-        let activeIndustries = [];
-        let activeSizes = [];
-        let activeDates = [];
-
-        // Category Filter
-        filterBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                filterBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                activeFilter = btn.dataset.filter;
-                applyFilters();
-            });
-        });
-
-        // Advanced Filters
-        document.querySelectorAll('.industry-filter').forEach(checkbox => {
-            checkbox.addEventListener('change', (e) => {
-                if (e.target.checked) {
-                    activeIndustries.push(e.target.value);
-                } else {
-                    activeIndustries = activeIndustries.filter(i => i !== e.target.value);
-                }
-                applyFilters();
-            });
-        });
-
-        document.querySelectorAll('.size-filter').forEach(checkbox => {
-            checkbox.addEventListener('change', (e) => {
-                if (e.target.checked) {
-                    activeSizes.push(e.target.value);
-                } else {
-                    activeSizes = activeSizes.filter(s => s !== e.target.value);
-                }
-                applyFilters();
-            });
-        });
-
-        document.querySelectorAll('.date-filter').forEach(checkbox => {
-            checkbox.addEventListener('change', (e) => {
-                if (e.target.checked) {
-                    activeDates.push(e.target.value);
-                } else {
-                    activeDates = activeDates.filter(d => d !== e.target.value);
-                }
-                applyFilters();
-            });
-        });
-
-        // Search Functionality
-        searchInput.addEventListener('input', (e) => {
-            applyFilters();
-        });
-
-        // Reset Filters
-        resetFiltersBtn.addEventListener('click', () => {
-            activeFilter = 'all';
-            activeIndustries = [];
-            activeSizes = [];
-            activeDates = [];
-            searchInput.value = '';
-            
-            filterBtns.forEach(b => b.classList.remove('active'));
-            filterBtns[0].classList.add('active');
-            
-            document.querySelectorAll('.industry-filter, .size-filter, .date-filter').forEach(checkbox => {
-                checkbox.checked = false;
-            });
-            
-            applyFilters();
-        });
-
-        // Apply All Filters
-        function applyFilters() {
-            const searchTerm = searchInput.value.toLowerCase();
-            let visibleCount = 0;
-
-            portfolioItems.forEach(item => {
-                const category = item.dataset.category;
-                const industry = item.dataset.industry;
-                const size = item.dataset.size;
-                const date = item.dataset.date;
-                const text = item.textContent.toLowerCase();
-
-                let show = true;
-
-                // Category filter
-                if (activeFilter !== 'all' && category !== activeFilter) {
-                    show = false;
-                }
-
-                // Industry filter
-                if (activeIndustries.length > 0 && !activeIndustries.includes(industry)) {
-                    show = false;
-                }
-
-                // Size filter
-                if (activeSizes.length > 0 && !activeSizes.includes(size)) {
-                    show = false;
-                }
-
-                // Date filter
-                if (activeDates.length > 0 && !activeDates.includes(date)) {
-                    show = false;
-                }
-
-                // Search filter
-                if (searchTerm && !text.includes(searchTerm)) {
-                    show = false;
-                }
-
-                if (show) {
-                    item.style.display = 'block';
-                    visibleCount++;
-                } else {
-                    item.style.display = 'none';
-                }
-            });
-
-            resultsCount.textContent = visibleCount;
-        }
-
-        // Project Modal
-        const projectModal = document.getElementById('projectModal');
-        const modalContent = document.getElementById('modalContent');
-        const viewProjectBtns = document.querySelectorAll('.view-project');
-
-        // Project Data
-        const projectData = {
-            1: {
-                title: 'Boutique Élégance - E-commerce',
-                category: 'Site Web',
-                date: 'Janvier 2025',
-                client: 'Boutique Élégance',
-                industry: 'E-commerce',
-                duration: '3 mois',
-                image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop',
-                challenge: 'Boutique Élégance avait besoin d\'une présence en ligne moderne pour concurrencer les grandes plateformes internationales tout en conservant son identité locale unique.',
-                solution: 'Nous avons créé une plateforme e-commerce complète avec système de paiement intégré, gestion d\'inventaire en temps réel, et expérience utilisateur optimisée pour le marché haïtien.',
-                results: [
-                    { metric: '+250%', label: 'Augmentation des Ventes' },
-                    { metric: '15 000+', label: 'Visiteurs Mensuels' },
-                    { metric: '4.8/5', label: 'Satisfaction Client' },
-                    { metric: '65%', label: 'Taux de Conversion' }
-                ],
-                testimonial: {
-                    text: 'CVisual a complètement transformé notre entreprise. Notre nouveau site e-commerce a dépassé toutes nos attentes.',
-                    author: 'Jean-Baptiste Moreau',
-                    role: 'Directeur, Boutique Élégance'
-                },
-                gallery: [
-                    'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop',
-                    'https://images.pexels.com/photos/265087/pexels-photo-265087.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-                    'https://images.pixabay.com/photo/2016/11/19/15/32/laptop-1839876_1280.jpg'
-                ]
-            },
-            2: {
-                title: 'Saveurs Créoles - Photographie Culinaire',
-                category: 'Photographie',
-                date: 'Décembre 2024',
-                client: 'Saveurs Créoles',
-                industry: 'Restaurant',
-                duration: '6 semaines',
-                image: 'https://images.pexels.com/photos/1264210/pexels-photo-1264210.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-                challenge: 'Le restaurant avait besoin de photos professionnelles pour attirer une clientèle internationale tout en préservant l\'authenticité de la cuisine créole.',
-                solution: 'Campagne photographique complète avec éclairage studio, mise en scène authentique, et post-production professionnelle mettant en valeur les couleurs vibrantes de la cuisine haïtienne.',
-                results: [
-                    { metric: '+300%', label: 'Engagement Instagram' },
-                    { metric: '25 000+', label: 'Nouveaux Abonnés' },
-                    { metric: '180%', label: 'Augmentation Réservations' },
-                    { metric: '50+', label: 'Photos Professionnelles' }
-                ],
-                testimonial: {
-                    text: 'Les photos de CVisual ont révolutionné notre marketing. Nous recevons maintenant des clients du monde entier.',
-                    author: 'Marie-Claire Joseph',
-                    role: 'Fondatrice, Saveurs Créoles'
-                },
-                gallery: [
-                    'https://images.pexels.com/photos/1264210/pexels-photo-1264210.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-                    'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=2340&auto=format&fit=crop',
-                    'https://images.pixabay.com/photo/2015/03/26/09/54/cupcakes-690040_1280.jpg'
-                ]
-            },
-            3: {
-                title: 'TechHaiti - Gestion Communautaire',
-                category: 'Réseaux Sociaux',
-                date: 'Novembre 2024',
-                client: 'TechHaiti Solutions',
-                industry: 'Technologie',
-                duration: '4 mois',
-                image: 'https://images.pixabay.com/photo/2017/01/29/13/21/mobile-phone-2016680_1280.jpg',
-                challenge: 'TechHaiti avait besoin d\'une stratégie de réseaux sociaux cohérente pour établir sa crédibilité et attirer des clients B2B.',
-                solution: 'Stratégie complète incluant calendrier de contenu, engagement communautaire, campagnes publicitaires ciblées, et analytics détaillés.',
-                results: [
-                    { metric: '+5 000', label: 'Nouveaux Abonnés' },
-                    { metric: '200%', label: 'Taux de Conversion' },
-                    { metric: '450%', label: 'Engagement Moyen' },
-                    { metric: '85%', label: 'Satisfaction Client' }
-                ],
-                testimonial: {
-                    text: 'La gestion de nos réseaux sociaux par CVisual a professionnalisé notre image de marque et doublé nos conversions.',
-                    author: 'Pierre-Louis Desrosiers',
-                    role: 'CEO, TechHaiti Solutions'
-                },
-                gallery: [
-                    'https://images.pixabay.com/photo/2017/01/29/13/21/mobile-phone-2016680_1280.jpg',
-                    'https://images.pexels.com/photos/267350/pexels-photo-267350.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-                    'https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=2574&auto=format&fit=crop'
-                ]
-            }
-        };
-
-        viewProjectBtns.forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.preventDefault();
-                const projectId = btn.dataset.project;
-                const project = projectData[projectId];
-                
-                if (project) {
-                    showProjectModal(project);
-                }
-            });
-        });
-
-        function showProjectModal(project) {
-            const modalHTML = `
-                <div class="relative">
-                    <button class="absolute top-4 right-4 z-10 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-elevation hover:bg-surface transition-colors" onclick="closeModal()">
-                        <svg class="w-6 h-6 text-text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-                        </svg>
-                    </button>
-                    
-                    <img src="${project.image}" alt="${project.title}" class="w-full h-96 object-cover rounded-t-lg" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop'; this.onerror=null;">
-                    
-                    <div class="p-8 space-y-8">
-                        <div>
-                            <div class="flex items-center space-x-4 mb-4">
-                                <span class="badge badge-success">${project.category}</span>
-                                <span class="text-text-tertiary text-sm">${project.date}</span>
-                            </div>
-                            <h2 class="text-4xl font-bold mb-4">${project.title}</h2>
-                            <div class="grid grid-cols-3 gap-4 text-sm">
-                                <div>
-                                    <span class="text-text-tertiary">Client:</span>
-                                    <p class="font-semibold">${project.client}</p>
-                                </div>
-                                <div>
-                                    <span class="text-text-tertiary">Industrie:</span>
-                                    <p class="font-semibold">${project.industry}</p>
-                                </div>
-                                <div>
-                                    <span class="text-text-tertiary">Durée:</span>
-                                    <p class="font-semibold">${project.duration}</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="grid md:grid-cols-2 gap-8">
-                            <div>
-                                <h3 class="text-xl font-bold mb-3">Le Défi</h3>
-                                <p class="text-text-secondary">${project.challenge}</p>
-                            </div>
-                            <div>
-                                <h3 class="text-xl font-bold mb-3">Notre Solution</h3>
-                                <p class="text-text-secondary">${project.solution}</p>
-                            </div>
-                        </div>
-
-                        <div>
-                            <h3 class="text-xl font-bold mb-6">Résultats Mesurables</h3>
-                            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                                ${project.results.map(result => `
-                                    <div class="text-center p-4 bg-surface rounded-base">
-                                        <div class="text-3xl font-bold text-primary mb-2">${result.metric}</div>
-                                        <div class="text-sm text-text-secondary">${result.label}</div>
-                                    </div>
-                                `).join('')}
-                            </div>
-                        </div>
-
-                        <div class="bg-primary-50 rounded-base p-6">
-                            <div class="flex items-start space-x-4">
-                                <svg class="w-8 h-8 text-primary flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M18 10c0 3.866-3.582 7-8 7a8.841 8.841 0 01-4.083-.98L2 17l1.338-3.123C2.493 12.767 2 11.434 2 10c0-3.866 3.582-7 8-7s8 3.134 8 7zM7 9H5v2h2V9zm8 0h-2v2h2V9zM9 9h2v2H9V9z" clip-rule="evenodd"/>
-                                </svg>
-                                <div class="flex-1">
-                                    <p class="text-lg italic text-text-primary mb-3">"${project.testimonial.text}"</p>
-                                    <div>
-                                        <p class="font-bold text-text-primary">${project.testimonial.author}</p>
-                                        <p class="text-sm text-text-secondary">${project.testimonial.role}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div>
-                            <h3 class="text-xl font-bold mb-6">Galerie du Projet</h3>
-                            <div class="grid md:grid-cols-3 gap-4">
-                                ${project.gallery.map((img, index) => `
-                                    <img src="${img}" alt="Image ${index + 1} du projet ${project.title}" class="w-full h-48 object-cover rounded-base" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop'; this.onerror=null;">
-                                `).join('')}
-                            </div>
-                        </div>
-
-                        <div class="flex flex-col sm:flex-row gap-4 pt-4">
-                            <a href="contact.html" class="btn-primary flex-1 text-center">
-                                Démarrer un Projet Similaire
-                                <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
-                                </svg>
-                            </a>
-                            <button onclick="closeModal()" class="btn-outline flex-1">Fermer</button>
-                        </div>
-                    </div>
-                </div>
-            `;
-
-            modalContent.innerHTML = modalHTML;
-            projectModal.classList.remove('hidden');
-            projectModal.classList.add('flex');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeModal() {
-            projectModal.classList.add('hidden');
-            projectModal.classList.remove('flex');
-            document.body.style.overflow = 'auto';
-        }
-
-        // Close modal on background click
-        projectModal.addEventListener('click', (e) => {
-            if (e.target === projectModal) {
-                closeModal();
-            }
-        });
-
-        // Close modal on Escape key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && !projectModal.classList.contains('hidden')) {
-                closeModal();
-            }
-        });
-
-        // Load More Functionality
-        const loadMoreBtn = document.getElementById('loadMoreBtn');
-        let itemsToShow = 9;
-
-        loadMoreBtn.addEventListener('click', () => {
-            itemsToShow += 6;
-            // In a real application, this would load more items from the server
-            loadMoreBtn.textContent = 'Tous les projets affichés';
-            loadMoreBtn.disabled = true;
-            loadMoreBtn.classList.add('opacity-50', 'cursor-not-allowed');
-        });
-
-        // Sort Functionality
-        const sortSelect = document.getElementById('sortSelect');
-        sortSelect.addEventListener('change', (e) => {
-            const sortValue = e.target.value;
-            // In a real application, this would sort the items
-            console.log('Sorting by:', sortValue);
-        });
-
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-    </script>
-
-    <style>
-        /* Filter Button Styles */
-        .filter-btn {
-            @apply inline-flex items-center space-x-2 px-4 py-2 rounded-base border border-border bg-white text-text-secondary hover:border-primary hover:text-primary transition-all duration-200 cursor-pointer;
-        }
-
-        .filter-btn.active {
-            @apply bg-primary text-white border-primary;
-        }
-
-        /* Line Clamp Utility */
-        .line-clamp-2 {
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        /* Modal Animation */
-        #projectModal {
-            animation: fadeIn 0.3s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        /* Smooth Transitions */
-        .portfolio-item {
-            transition: all 0.3s ease;
-        }
-
-        /* Custom Scrollbar for Modal */
-        #projectModal::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        #projectModal::-webkit-scrollbar-track {
-            background: var(--color-surface);
-        }
-
-        #projectModal::-webkit-scrollbar-thumb {
-            background: var(--color-text-tertiary);
-            border-radius: var(--radius-base);
-        }
-
-        #projectModal::-webkit-scrollbar-thumb:hover {
-            background: var(--color-text-secondary);
-        }
-
-        /* Bottom Navigation Styles */
-        .bottom-nav a {
-            color: #6B7280;
-            transition: all 0.3s ease;
-        }
-
-        .bottom-nav a:hover {
-            color: #1E40AF;
-        }
-
-        .bottom-nav a.active {
-            color: #1E40AF;
-        }
-
-        .bottom-nav a.active svg {
-            stroke: #1E40AF;
-        }
-    </style>
-<script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
 
     <!-- Bottom Navigation for Mobile -->
     <nav class="lg:hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-sm border-t border-border shadow-elevated z-50 bottom-nav">
@@ -1128,13 +387,6 @@
                 </svg>
                 <span class="text-xs font-medium">À Propos</span>
             </a>
-            <a href="admin.html" class="flex flex-col items-center justify-center space-y-1 p-2 min-w-0 flex-1">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-                </svg>
-                <span class="text-xs font-medium">Admin</span>
-            </a>
             <a href="contact.html" class="flex flex-col items-center justify-center space-y-1 p-2 min-w-0 flex-1">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
@@ -1143,5 +395,60 @@
             </a>
         </div>
     </nav>
+
+    <script>
+        // Header Scroll Effect
+        const header = document.getElementById('mainHeader');
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 100) {
+                header.classList.add('shadow-elevation');
+            } else {
+                header.classList.remove('shadow-elevation');
+            }
+        });
+
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        if (mobileMenuBtn && mobileMenu) {
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+    </script>
+
+    <style>
+        .line-clamp-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        #projectModal::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        #projectModal::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        #projectModal::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
+
+        #projectModal::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        .bottom-nav a.active svg {
+            stroke: var(--color-primary);
+        }
+        
+        .bottom-nav a.active span {
+            color: var(--color-primary);
+        }
+    </style>
 </body>
 </html>
