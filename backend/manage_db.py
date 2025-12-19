@@ -6,7 +6,7 @@ sys.path.append(os.getcwd())
 
 from app import app, db
 from sqlalchemy import inspect
-from flask_migrate import upgrade, stamp
+from flask_migrate import upgrade, stamp, current
 
 def setup_db():
     print("\n--- DATABASE SETUP START ---")
@@ -23,8 +23,14 @@ def setup_db():
             has_core_tables = any(t in tables for t in ['admin', 'project', 'service', 'contact_inquiry'])
             
             if has_alembic:
-                print("Alembic history found. Proceeding with standard upgrade...")
-                upgrade()
+                current_rev = current()
+                print(f"Current Alembic revision: {current_rev}")
+                if current_rev is None and has_core_tables:
+                    print("Alembic history exists but no revision set, and core tables present. Stamping to head...")
+                    stamp(revision='head')
+                else:
+                    print("Proceeding with standard upgrade...")
+                    upgrade()
             elif has_core_tables:
                 print("CRITICAL: Core tables already exist but no migration history found.")
                 print("This database was likely initialized previously without migrations.")
