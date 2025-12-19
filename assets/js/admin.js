@@ -3,7 +3,7 @@
  * Handles API calls, JWT management, and dynamic rendering.
  */
 
-const API_BASE = 'http://localhost:5000/api'; // Update for production
+const API_BASE = 'https://cvisual.onrender.com/api'; // Update for production
 
 const AdminApp = {
     // Auth Management

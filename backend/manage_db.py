@@ -7,6 +7,7 @@ sys.path.append(os.getcwd())
 from app import app, db
 from sqlalchemy import inspect
 from flask_migrate import upgrade, stamp, current
+from init_db import init_db
 
 def setup_db():
     print("\n--- DATABASE SETUP START ---")
@@ -43,6 +44,10 @@ def setup_db():
             else:
                 print("Empty database detected. Running initial migrations...")
                 upgrade()
+                
+            # Initialize database with default data
+            print("Initializing database with default data...")
+            init_db()
                 
             print("--- DATABASE SETUP COMPLETE ---\n")
             

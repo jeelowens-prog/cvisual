@@ -3,7 +3,7 @@
  * Handles data fetching for the public pages.
  */
 
-const PUBLIC_API_BASE = 'http://localhost:5000/api';
+const PUBLIC_API_BASE = 'https://cvisual.onrender.com/api';
 
 const CVisual = {
     async fetchPortfolio() {

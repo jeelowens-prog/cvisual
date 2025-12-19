@@ -108,7 +108,7 @@
         document.addEventListener('DOMContentLoaded', async () => {
             // Load dashboard stats
             const inquiries = await AdminApp.request('/inquiries');
-            const projects = await fetch('http://localhost:5000/api/portfolio').then(r => r.json());
+            const projects = await AdminApp.request('/portfolio');
             
             if (inquiries) {
                 document.getElementById('newMessages').textContent = inquiries.filter(i => i.status === 'pending').length;

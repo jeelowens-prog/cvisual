@@ -16,5 +16,9 @@ services:
         sync: false
       - key: CLOUDINARY_API_SECRET
         sync: false
+      - key: ADMIN_USERNAME
+        value: jeeko
+      - key: ADMIN_PASSWORD
+        value: david12
       - key: PYTHON_VERSION
         value: 3.10.13
