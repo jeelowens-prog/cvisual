@@ -4,6 +4,7 @@ from flask_cors import CORS
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 from werkzeug.security import generate_password_hash, check_password_hash
 from dotenv import load_dotenv
+from flask_migrate import Migrate
 from models import db, Admin, Project, ProjectImage, ProjectMetric, Service, ContactInquiry, NewsletterSubscriber
 from routes import api
 import cloudinary
@@ -11,18 +12,20 @@ import cloudinary
 load_dotenv()
 
 app = Flask(__name__)
-# Enable CORS for local development and file access
-CORS(app, resources={r"/api/*": {"origins": "*"}}, 
-     supports_credentials=True,
-     allow_headers=["Content-Type", "Authorization", "Access-Control-Allow-Credentials"],
-     methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"])
+CORS(app) # Enable CORS for all routes
+
+# Render provides 'postgres://', but SQLAlchemy 1.4+ requires 'postgresql://'
+database_url = os.getenv('DATABASE_URL')
+if database_url and database_url.startswith("postgres://"):
+    database_url = database_url.replace("postgres://", "postgresql://", 1)
 
 # Configuration
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
+app.config['SQLALCHEMY_DATABASE_URI'] = database_url or 'sqlite:///cvisual.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['JWT_SECRET_KEY'] = os.getenv('JWT_SECRET_KEY', 'default-secret-key')
 
 db.init_app(app)
+migrate = Migrate(app, db)
 jwt = JWTManager(app)
 
 app.register_blueprint(api, url_prefix='/api')
@@ -61,6 +64,4 @@ def home():
     return jsonify({"message": "CVisual API is running"})
 
 if __name__ == '__main__':
-    with app.app_context():
-        db.create_all()
     app.run(debug=True)

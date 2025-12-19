@@ -18,7 +18,7 @@ def init_db():
         print("Database tables created.")
 
         # Create default admin if not exists
-        username = os.getenv('ADMIN_USERNAME', 'admin')
+        username = os.getenv('ADMIN_USERNAME', 'admin@')
         password = os.getenv('ADMIN_PASSWORD', 'admin123')
         
         if not Admin.query.filter_by(username=username).first():
