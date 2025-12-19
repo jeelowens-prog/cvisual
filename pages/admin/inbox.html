@@ -17,6 +17,7 @@
         <nav class="sidebar-nav">
             <a href="dashboard.html" class="nav-item">Dashboard</a>
             <a href="portfolio.html" class="nav-item">Portfolio</a>
+            <a href="services.html" class="nav-item">Services</a>
             <a href="inbox.html" class="nav-item active">Inquiries</a>
             <a href="newsletter.html" class="nav-item">Newsletter</a>
         </nav>
@@ -83,21 +84,68 @@
         }
 
         async function viewMessage(id) {
-            // In a real app, you'd fetch specific message details
-            // For now, we'll just show the modal
+            const i = await AdminApp.request(`/inquiries/${id}`);
+            if (!i || i.error) return;
+
             document.getElementById('messageModal').classList.remove('hidden');
             document.getElementById('messageContent').innerHTML = `
-                <div class="flex justify-between items-start mb-6">
+                <div class="flex justify-between items-start mb-6 border-b pb-4">
                     <div>
-                        <h3 class="text-2xl font-bold">Détails du message</h3>
-                        <p class="text-gray-500">ID: #${id}</p>
+                        <h3 class="text-2xl font-bold text-gray-800">${i.firstName} ${i.lastName}</h3>
+                        <p class="text-gray-500">${i.email} • ${i.phone}</p>
                     </div>
-                    <button onclick="closeModal()" class="text-gray-400 hover:text-gray-600 text-2xl">&times;</button>
+                    <button onclick="closeModal()" class="text-gray-400 hover:text-gray-600 text-2xl transition">&times;</button>
                 </div>
-                <div class="space-y-4">
-                   <p class="text-center text-gray-500 italic">Détails complets à implémenter (demande Fetch /api/inquiries/${id})</p>
+                
+                <div class="grid grid-cols-2 gap-6 mb-8">
+                    <div>
+                        <span class="block text-xs uppercase text-gray-400 font-bold mb-1">Service</span>
+                        <span class="text-gray-700 font-medium">${i.service}</span>
+                    </div>
+                    <div>
+                        <span class="block text-xs uppercase text-gray-400 font-bold mb-1">Entreprise</span>
+                        <span class="text-gray-700 font-medium">${i.company || 'N/A'}</span>
+                    </div>
+                    <div>
+                        <span class="block text-xs uppercase text-gray-400 font-bold mb-1">Budget</span>
+                        <span class="text-gray-700 font-medium">${i.budget || 'Non spécifié'}</span>
+                    </div>
+                    <div>
+                        <span class="block text-xs uppercase text-gray-400 font-bold mb-1">Délai</span>
+                        <span class="text-gray-700 font-medium">${i.timeline || 'Flexible'}</span>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <span class="block text-xs uppercase text-gray-400 font-bold mb-2">Message</span>
+                    <div class="bg-gray-50 p-4 rounded-xl text-gray-700 leading-relaxed">
+                        ${i.message.replace(/\n/g, '<br>')}
+                    </div>
+                </div>
+
+                <div class="flex justify-between items-center pt-6 border-t">
+                    <div class="flex items-center space-x-2">
+                        <span class="text-sm text-gray-500">Statut:</span>
+                        <select onchange="updateStatus(${i.id}, this.value)" class="text-sm border rounded-lg px-2 py-1 bg-white">
+                            <option value="pending" ${i.status === 'pending' ? 'selected' : ''}>Nouveau</option>
+                            <option value="contacted" ${i.status === 'contacted' ? 'selected' : ''}>Contacté</option>
+                            <option value="closed" ${i.status === 'closed' ? 'selected' : ''}>Clôturé</option>
+                        </select>
+                    </div>
+                    <a href="mailto:${i.email}" class="bg-blue-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-blue-700 transition">Répondre par Email</a>
                 </div>
             `;
+        }
+
+        async function updateStatus(id, newStatus) {
+            const res = await AdminApp.request(`/inquiries/${id}`, {
+                method: 'PUT',
+                body: JSON.stringify({ status: newStatus })
+            });
+            if (res && res.message) {
+                AdminApp.showToast('Statut mis à jour');
+                loadInquiries();
+            }
         }
 
         function closeModal() { document.getElementById('messageModal').classList.add('hidden'); }

@@ -1170,45 +1170,66 @@
     </nav>
     <script src="../assets/js/public.js"></script>
     <script>
-        async function renderServices() {
-            const services = await CVisual.fetchServices();
-            const matrix = document.getElementById('servicesMatrix');
-            
-            if (!services || services.length === 0) {
-                // Fallback to static or show empty
-                return;
-            }
-
-            matrix.innerHTML = services.map(s => `
-                <tr class="hover:bg-white transition-colors">
-                    <td class="px-6 py-4">
-                        <div class="flex items-center space-x-3">
-                            <div class="w-10 h-10 bg-accent-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                                ${getIcon(s.icon)}
-                            </div>
-                            <span class="font-semibold text-text-primary">${s.name}</span>
-                        </div>
-                    </td>
-                    <td class="px-6 py-4 text-center text-text-secondary">${s.delay}</td>
-                    <td class="px-6 py-4 text-center font-semibold text-primary">${s.price}</td>
-                    <td class="px-6 py-4 text-center">
-                        <span class="inline-flex items-center text-success font-semibold">
-                            <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M12 7a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0V8.414l-4.293 4.293a1 1 0 01-1.414 0L8 10.414l-4.293 4.293a1 1 0 01-1.414-1.414l5-5a1 1 0 011.414 0L11 10.586 14.586 7H12z" clip-rule="evenodd"/>
-                            </svg>
-                            ${s.roi}
-                        </span>
-                    </td>
-                    <td class="px-6 py-4 text-center">
-                        <a href="${s.anchor}" class="text-accent hover:text-accent-600 font-semibold transition-colors">Détails</a>
-                    </td>
-                </tr>
-            `).join('');
+        function getIcon(type) {
+            const icons = {
+                'website': `<svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>`,
+                'camera': `<svg class="w-5 h-5 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/></svg>`,
+                'community': `<svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"/></svg>`,
+                'design': `<svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>`,
+                'content': `<svg class="w-5 h-5 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>`
+            };
+            return icons[type] || icons['website'];
         }
 
-        function getIcon(type) {
-            // Mapping icon types to SVG strings (simplified for demo)
-            return '<svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>';
+        function getBgClass(type) {
+            const classes = {
+                'website': 'bg-accent-100',
+                'camera': 'bg-secondary-100',
+                'community': 'bg-primary-100',
+                'design': 'bg-accent-100',
+                'content': 'bg-secondary-100'
+            };
+            return classes[type] || 'bg-gray-100';
+        }
+
+        async function renderServices() {
+            try {
+                const services = await CVisual.fetchServices();
+                const matrix = document.getElementById('servicesMatrix');
+                
+                if (!services || services.length === 0) {
+                    matrix.innerHTML = '<tr><td colspan="5" class="px-6 py-8 text-center text-gray-500 italic">Aucun service disponible pour le moment.</td></tr>';
+                    return;
+                }
+
+                matrix.innerHTML = services.map(s => `
+                    <tr class="hover:bg-white transition-colors">
+                        <td class="px-6 py-4">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 ${getBgClass(s.icon)} rounded-lg flex items-center justify-center flex-shrink-0">
+                                    ${getIcon(s.icon)}
+                                </div>
+                                <span class="font-semibold text-text-primary">${s.name}</span>
+                            </div>
+                        </td>
+                        <td class="px-6 py-4 text-center text-text-secondary">${s.delay}</td>
+                        <td class="px-6 py-4 text-center font-semibold text-primary">${s.price}</td>
+                        <td class="px-6 py-4 text-center">
+                            <span class="inline-flex items-center text-success font-semibold">
+                                <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M12 7a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0V8.414l-4.293 4.293a1 1 0 01-1.414 0L8 10.414l-4.293 4.293a1 1 0 01-1.414-1.414l5-5a1 1 0 011.414 0L11 10.586 14.586 7H12z" clip-rule="evenodd"/>
+                                </svg>
+                                ${s.roi}
+                            </span>
+                        </td>
+                        <td class="px-6 py-4 text-center">
+                            <a href="${s.anchor}" class="text-accent hover:text-accent-600 font-semibold transition-colors">Détails</a>
+                        </td>
+                    </tr>
+                `).join('');
+            } catch (err) {
+                console.error("Failed to render services:", err);
+            }
         }
 
         document.addEventListener('DOMContentLoaded', renderServices);

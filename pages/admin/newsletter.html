@@ -13,6 +13,7 @@
         <nav class="sidebar-nav">
             <a href="dashboard.html" class="nav-item">Dashboard</a>
             <a href="portfolio.html" class="nav-item">Portfolio</a>
+            <a href="services.html" class="nav-item">Services</a>
             <a href="inbox.html" class="nav-item">Inquiries</a>
             <a href="newsletter.html" class="nav-item active">Newsletter</a>
         </nav>
@@ -22,7 +23,7 @@
     <main class="main-content">
         <header class="header-admin">
             <h2 class="text-3xl font-bold text-gray-800">Newsletter</h2>
-            <button class="bg-blue-600 text-white px-4 py-2 rounded-lg">Exporter CSV</button>
+            <button onclick="exportCSV()" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">Exporter CSV</button>
         </header>
 
         <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
@@ -36,14 +37,56 @@
 
     <script src="../../assets/js/admin.js"></script>
     <script>
-        // Simple list loading - in a real app, this would have a dedicated endpoint
-        // For now, it's a placeholder to show the UI
-        document.getElementById('subscriberList').innerHTML = `
-            <li class="py-3 flex justify-between">
-                <span>test@example.com</span>
-                <span class="text-gray-400 text-sm">Abonné le 17/12/2025</span>
-            </li>
-        `;
+        async function loadSubscribers() {
+            const list = document.getElementById('subscriberList');
+            const subs = await AdminApp.request('/newsletter');
+            
+            if (!subs || subs.error) {
+                list.innerHTML = '<li class="py-2 text-red-500">Erreur lors du chargement</li>';
+                return;
+            }
+
+            if (subs.length === 0) {
+                list.innerHTML = '<li class="py-2 text-gray-500">Aucun abonné pour le moment</li>';
+                return;
+            }
+
+            list.innerHTML = subs.map(s => `
+                <li class="py-3 flex justify-between items-center">
+                    <span class="font-medium text-gray-700">${s.email}</span>
+                    <span class="text-gray-400 text-sm">Abonné le ${new Date(s.date).toLocaleDateString('fr-FR')}</span>
+                </li>
+            `).join('');
+        }
+
+        async function exportCSV() {
+            try {
+                const token = AdminApp.getToken();
+                const response = await fetch(`${API_BASE}/newsletter/export`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                
+                if (!response.ok) throw new Error('Export failed');
+                
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.style.display = 'none';
+                a.href = url;
+                a.download = 'subscribers.csv';
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+            } catch (e) {
+                console.error('Export error:', e);
+                alert('Erreur lors de l\'exportation CSV');
+            }
+        }
+
+        // Initialize
+        loadSubscribers();
     </script>
 </body>
 </html>

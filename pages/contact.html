@@ -787,7 +787,7 @@
                 email: formData.get('email'),
                 phone: formData.get('phone'),
                 company: formData.get('company'),
-                service: formData.get('service'),
+                service: formData.get('serviceType'),
                 budget: formData.get('budget'),
                 timeline: formData.get('timeline'),
                 message: formData.get('message'),
@@ -805,6 +805,8 @@
             if (result.message) {
                 e.target.classList.add('hidden');
                 successMsg.classList.remove('hidden');
+                // Scroll to top of section to see the message
+                e.target.parentElement.scrollIntoView({ behavior: 'smooth' });
             } else {
                 alert('Erreur: ' + (result.error || 'Une erreur est survenue'));
                 submitBtn.disabled = false;

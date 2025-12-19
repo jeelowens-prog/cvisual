@@ -51,16 +51,16 @@
                 </p>
 
                 <!-- Newsletter Signup -->
-                <div class="max-w-md mx-auto pt-4">
+                <div class="max-w-md mx-auto pt-4" id="newsletterContainer">
                     <form class="flex flex-col sm:flex-row gap-3" id="newsletterForm">
                         <input type="email" placeholder="Votre adresse email" class="input flex-1" required aria-label="Adresse email pour newsletter">
                         <button type="submit" class="btn-primary whitespace-nowrap">
                             <span>S'abonner</span>
-                            <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                            </svg>
                         </button>
                     </form>
+                    <div id="newsletterSuccess" class="hidden bg-success-light border border-success text-success px-4 py-3 rounded-base animate-fade-in">
+                        <p class="font-semibold text-center">Merci de vous être abonné !</p>
+                    </div>
                     <p class="text-sm text-text-tertiary mt-2">Recevez nos derniers articles et conseils créatifs</p>
                 </div>
             </div>
@@ -753,19 +753,23 @@
             e.preventDefault();
             const emailInput = e.target.querySelector('input[type="email"]');
             const email = emailInput.value;
+            const successMsg = document.getElementById('newsletterSuccess');
             
             const submitBtn = e.target.querySelector('button[type="submit"]');
             submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span>Traitement...</span>';
 
             const result = await CVisual.subscribeNewsletter(email);
             
             if (result.message) {
-                alert('Merci de vous être abonné !');
+                e.target.classList.add('hidden');
+                successMsg.classList.remove('hidden');
                 e.target.reset();
             } else {
                 alert('Erreur: ' + (result.error || 'Une erreur est survenue'));
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<span>S\'abonner</span>';
             }
-            submitBtn.disabled = false;
         });
 
         // Load More Button

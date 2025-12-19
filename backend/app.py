@@ -11,8 +11,8 @@ import cloudinary
 load_dotenv()
 
 app = Flask(__name__)
-# Enable CORS for local development
-CORS(app, resources={r"/api/*": {"origins": ["http://127.0.0.1:5500", "http://localhost:5500", "http://localhost:3000"]}}, 
+# Enable CORS for local development and file access
+CORS(app, resources={r"/api/*": {"origins": "*"}}, 
      supports_credentials=True,
      allow_headers=["Content-Type", "Authorization", "Access-Control-Allow-Credentials"],
      methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"])

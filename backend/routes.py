@@ -191,7 +191,35 @@ def get_inquiries():
         'date': i.created_at.isoformat()
     } for i in inquiries])
 
-# --- SERVICES ---
+@api.route('/inquiries/<int:id>', methods=['GET'])
+@jwt_required()
+def get_inquiry_detail(id):
+    i = ContactInquiry.query.get_or_404(id)
+    return jsonify({
+        'id': i.id,
+        'firstName': i.first_name,
+        'lastName': i.last_name,
+        'email': i.email,
+        'phone': i.phone,
+        'company': i.company,
+        'service': i.service_type,
+        'budget': i.budget,
+        'timeline': i.timeline,
+        'message': i.message,
+        'contactMethod': i.contact_method,
+        'status': i.status,
+        'date': i.created_at.isoformat()
+    })
+
+@api.route('/inquiries/<int:id>', methods=['PUT'])
+@jwt_required()
+def update_inquiry_status(id):
+    i = ContactInquiry.query.get_or_404(id)
+    data = request.get_json()
+    i.status = data.get('status', i.status)
+    db.session.commit()
+    return jsonify({"message": "Status updated"})
+
 @api.route('/services', methods=['GET'])
 def get_services():
     services = Service.query.all()
@@ -204,6 +232,30 @@ def get_services():
         'icon': s.icon_type,
         'anchor': s.details_anchor
     } for s in services])
+
+@api.route('/services', methods=['POST'])
+@jwt_required()
+def add_service():
+    data = request.get_json()
+    new_service = Service(
+        name=data.get('name'),
+        delay=data.get('delay'),
+        starting_price=data.get('price'),
+        roi=data.get('roi'),
+        icon_type=data.get('icon', 'website'),
+        details_anchor=data.get('anchor', '#')
+    )
+    db.session.add(new_service)
+    db.session.commit()
+    return jsonify({"message": "Service added successfully", "id": new_service.id}), 201
+
+@api.route('/services/<int:id>', methods=['DELETE'])
+@jwt_required()
+def delete_service(id):
+    service = Service.query.get_or_404(id)
+    db.session.delete(service)
+    db.session.commit()
+    return jsonify({"message": "Service deleted successfully"}), 200
 
 @api.route('/services/<int:id>', methods=['PUT'])
 @jwt_required()
@@ -229,3 +281,42 @@ def subscribe():
     db.session.add(new_sub)
     db.session.commit()
     return jsonify({"message": "Subscribed successfully"}), 201
+
+@api.route('/newsletter', methods=['GET'])
+@jwt_required()
+def get_subscribers():
+    subs = NewsletterSubscriber.query.order_by(NewsletterSubscriber.created_at.desc()).all()
+    return jsonify([{
+        'id': s.id,
+        'email': s.email,
+        'date': s.created_at.isoformat()
+    } for s in subs])
+
+@api.route('/newsletter/export', methods=['GET'])
+@jwt_required()
+def export_subscribers():
+    import csv
+    import io
+    from flask import Response
+    
+    subs = NewsletterSubscriber.query.order_by(NewsletterSubscriber.created_at.desc()).all()
+    
+    def generate():
+        data = io.StringIO()
+        writer = csv.writer(data)
+        writer.writerow(['ID', 'Email', 'Date d\'abonnement'])
+        yield data.getvalue()
+        data.seek(0)
+        data.truncate(0)
+        
+        for s in subs:
+            writer.writerow([s.id, s.email, s.created_at.strftime('%Y-%m-%d %H:%M:%S')])
+            yield data.getvalue()
+            data.seek(0)
+            data.truncate(0)
+            
+    return Response(
+        generate(),
+        mimetype='text/csv',
+        headers={"Content-disposition": "attachment; filename=subscribers.csv"}
+    )

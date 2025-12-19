@@ -34,17 +34,21 @@ const AdminApp = {
         const url = `${API_BASE}${endpoint}`;
         const token = this.getToken();
 
-        const headers = {
-            'Content-Type': 'application/json',
-            ...options.headers
-        };
+        const isFormData = options.body instanceof FormData;
+        const headers = { ...options.headers };
+
+        if (!isFormData) {
+            headers['Content-Type'] = 'application/json';
+        }
 
         if (token) {
             headers['Authorization'] = `Bearer ${token}`;
         }
 
+        this.showLoader();
         try {
             const response = await fetch(url, { ...options, headers });
+            this.hideLoader();
 
             if (response.status === 401) {
                 this.logout();
@@ -53,6 +57,7 @@ const AdminApp = {
 
             return await response.json();
         } catch (error) {
+            this.hideLoader();
             console.error('API Request Error:', error);
             return { error: 'Network error' };
         }
@@ -60,8 +65,63 @@ const AdminApp = {
 
     // UI Helpers
     showToast(message, type = 'success') {
-        // Implementation for a premium toast notification
         console.log(`[${type}] ${message}`);
+    },
+
+    showLoader() {
+        if (!document.getElementById('global-loader')) {
+            const loader = document.createElement('div');
+            loader.id = 'global-loader';
+            loader.innerHTML = `
+                <div class="loader-overlay">
+                    <div class="loader-spinner"></div>
+                </div>
+            `;
+            document.body.appendChild(loader);
+
+            if (!document.getElementById('loader-styles')) {
+                const style = document.createElement('style');
+                style.id = 'loader-styles';
+                style.textContent = `
+                    .loader-overlay {
+                        position: fixed;
+                        inset: 0;
+                        background: rgba(255, 255, 255, 0.7);
+                        backdrop-filter: blur(4px);
+                        display: flex;
+                        items-center: center;
+                        justify-content: center;
+                        z-index: 9999;
+                        opacity: 0;
+                        transition: opacity 0.3s ease;
+                        pointer-events: all;
+                    }
+                    .loader-spinner {
+                        width: 48px;
+                        height: 48px;
+                        border: 5px solid #3b82f6;
+                        border-bottom-color: transparent;
+                        border-radius: 50%;
+                        animation: spin 1s linear infinite;
+                    }
+                    @keyframes spin {
+                        to { transform: rotate(360deg); }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+        }
+        setTimeout(() => document.querySelector('.loader-overlay').style.opacity = '1', 10);
+    },
+
+    hideLoader() {
+        const overlay = document.querySelector('.loader-overlay');
+        if (overlay) {
+            overlay.style.opacity = '0';
+            setTimeout(() => overlay.remove(), 300);
+            const container = document.getElementById('global-loader');
+            if (container) setTimeout(() => container.remove(), 300);
+        }
     }
 };
 

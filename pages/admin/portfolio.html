@@ -18,6 +18,7 @@
         <nav class="sidebar-nav">
             <a href="dashboard.html" class="nav-item">Dashboard</a>
             <a href="portfolio.html" class="nav-item active">Portfolio</a>
+            <a href="services.html" class="nav-item">Services</a>
             <a href="inbox.html" class="nav-item">Inquiries</a>
             <a href="newsletter.html" class="nav-item">Newsletter</a>
         </nav>
@@ -103,8 +104,9 @@
         let projectsCache = [];
 
         async function loadProjects() {
-            try {
-                projectsCache = await fetch('http://localhost:5000/api/portfolio').then(r => r.json());
+            const projects = await AdminApp.request('/portfolio');
+            if (projects && !projects.error) {
+                projectsCache = projects;
                 const list = document.getElementById('projectList');
                 list.innerHTML = projectsCache.map(p => `
                     <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group">
@@ -122,8 +124,6 @@
                         </div>
                     </div>
                 `).join('');
-            } catch (err) {
-                console.error("Failed to load projects:", err);
             }
         }
 
@@ -138,12 +138,10 @@
                 projectIdField.value = "";
                 modalTitle.textContent = "Ajouter un Projet";
                 submitBtn.textContent = "Publier le projet";
-                // Main image is required for new projects
                 document.querySelector('input[name="main_image"]').required = true;
             } else {
                 modalTitle.textContent = "Modifier le Projet";
                 submitBtn.textContent = "Enregistrer les modifications";
-                // Main image is optional for edits
                 document.querySelector('input[name="main_image"]').required = false;
             }
 
@@ -167,22 +165,12 @@
 
         async function deleteProject(id) {
             if (!confirm('Êtes-vous sûr de vouloir supprimer ce projet ?')) return;
-
-            try {
-                const response = await fetch(`http://localhost:5000/api/portfolio/${id}`, {
-                    method: 'DELETE',
-                    headers: { 'Authorization': `Bearer ${AdminApp.getToken()}` }
-                });
-
-                if (response.ok) {
-                    AdminApp.showToast('Projet supprimé');
-                    loadProjects();
-                } else {
-                    const data = await response.json();
-                    alert('Erreur: ' + (data.error || 'Impossible de supprimer'));
-                }
-            } catch (err) {
-                alert('Erreur réseau');
+            const res = await AdminApp.request(`/portfolio/${id}`, { method: 'DELETE' });
+            if (res && res.message) {
+                AdminApp.showToast('Projet supprimé');
+                loadProjects();
+            } else {
+                alert('Erreur: ' + (res?.error || 'Impossible de supprimer'));
             }
         }
 
@@ -191,32 +179,21 @@
             const formData = new FormData(e.target);
             const projectId = document.getElementById('projectIdField').value;
             
-            const url = projectId 
-                ? `http://localhost:5000/api/portfolio/${projectId}` 
-                : 'http://localhost:5000/api/portfolio';
-            
+            const url = projectId ? `/portfolio/${projectId}` : '/portfolio';
             const method = projectId ? 'PUT' : 'POST';
 
-            try {
-                const response = await fetch(url, {
-                    method: method,
-                    headers: { 'Authorization': `Bearer ${AdminApp.getToken()}` },
-                    body: formData
-                });
+            const res = await AdminApp.request(url, {
+                method: method,
+                body: formData
+            });
 
-                const data = await response.json();
-
-                if (response.ok) {
-                    closeModal();
-                    loadProjects();
-                    AdminApp.showToast(projectId ? 'Projet mis à jour !' : 'Projet ajouté !');
-                    e.target.reset();
-                } else {
-                    alert('Erreur: ' + (data.error || data.msg || 'Une erreur est survenue'));
-                }
-            } catch (err) {
-                console.error(err);
-                alert('Erreur réseau ou CORS : ' + err.message);
+            if (res && res.message) {
+                closeModal();
+                loadProjects();
+                AdminApp.showToast(projectId ? 'Projet mis à jour !' : 'Projet ajouté !');
+                e.target.reset();
+            } else {
+                alert('Erreur: ' + (res?.error || res?.msg || 'Une erreur est survenue'));
             }
         });
 
